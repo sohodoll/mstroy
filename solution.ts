@@ -1,8 +1,14 @@
-class TreeStore {
-  items: any[]
-  itemMap: Map<any, any>
+type Item = {
+  id: string | number
+  parent: string | number
+  type?: string | null
+}
 
-  constructor(items: any[]) {
+class TreeStore {
+  items: Item[]
+  itemMap: Map<string | number, Item>
+
+  constructor(items: Item[]) {
     this.items = items
     this.itemMap = new Map()
 
@@ -12,16 +18,16 @@ class TreeStore {
     }
   }
 
-  getAll(): any[] {
+  getAll(): Item[] {
     return this.items
   }
 
-  getItem(id: any): any | undefined {
+  getItem(id: string | number): Item | undefined {
     return this.itemMap.get(id)
   }
 
-  getChildren(id: any): any[] {
-    const children: any[] = []
+  getChildren(id: string | number): Item[] {
+    const children: Item[] = []
     for (const item of this.items) {
       if (item.parent === id) {
         children.push(item)
@@ -30,7 +36,7 @@ class TreeStore {
     return children
   }
 
-  getAllChildren(id: any): any[] {
+  getAllChildren(id: string | number): Item[] {
     const allChildren: any[] = []
     const stack: any[] = [id]
 
@@ -44,7 +50,7 @@ class TreeStore {
     return allChildren
   }
 
-  getAllParents(id: any): any[] {
+  getAllParents(id: string | number): Item[] {
     const allParents: any[] = []
     let currentId = id
 
