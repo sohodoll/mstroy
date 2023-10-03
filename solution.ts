@@ -52,12 +52,15 @@ class TreeStore {
 
   getAllParents(id: string | number): Item[] {
     const allParents: any[] = []
-    let currentId = id
+    const item = this.itemMap.get(id) as Item
+    let currentId = item.parent
 
     while (currentId !== 'root' && currentId !== undefined) {
       const parent = this.itemMap.get(currentId)
+
       if (parent) {
         allParents.push(parent)
+
         currentId = parent.parent
       } else {
         break
@@ -81,6 +84,7 @@ const items = [
 
 const ts = new TreeStore(items)
 
+//testing
 console.log(ts.getAll())
 console.log(ts.getItem(7))
 console.log(ts.getChildren(4))
@@ -88,3 +92,5 @@ console.log(ts.getChildren(5))
 console.log(ts.getChildren(2))
 console.log(ts.getAllChildren(2))
 console.log(ts.getAllParents(7))
+console.log(ts.getAllParents(2))
+console.log(ts.getAllParents(4))

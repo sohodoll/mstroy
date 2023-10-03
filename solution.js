@@ -37,7 +37,8 @@ var TreeStore = /** @class */ (function () {
     };
     TreeStore.prototype.getAllParents = function (id) {
         var allParents = [];
-        var currentId = id;
+        var item = this.itemMap.get(id);
+        var currentId = item.parent;
         while (currentId !== 'root' && currentId !== undefined) {
             var parent_1 = this.itemMap.get(currentId);
             if (parent_1) {
@@ -63,6 +64,7 @@ var items = [
     { id: 8, parent: 4, type: null },
 ];
 var ts = new TreeStore(items);
+//testing
 console.log(ts.getAll());
 console.log(ts.getItem(7));
 console.log(ts.getChildren(4));
@@ -70,3 +72,5 @@ console.log(ts.getChildren(5));
 console.log(ts.getChildren(2));
 console.log(ts.getAllChildren(2));
 console.log(ts.getAllParents(7));
+console.log(ts.getAllParents(2));
+console.log(ts.getAllParents(4));
